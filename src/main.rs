@@ -19,21 +19,21 @@ async fn secretfn() -> impl Responder {
     HttpResponse::Ok().body("Welcome to my secret page!")
 }
 async fn health_check() -> impl Responder {
- HttpResponse::Ok().body("All in good health!")
+    HttpResponse::Ok().body("All in good health!")
 }
 
 async fn greet(req: HttpRequest) -> impl Responder {
-    let name = req.match_info().get("name").unwrap_or("NONAME");
+    let name: &str = req.match_info().get("name").unwrap_or("NONAME");
     format!("Hello {}!", &name)
 }
 
 #[actix_web::main]
-async fn main() -> std::io::Result<()> {
+pub async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
-            .route("/health_check", web::get().to(health_check))
             .service(hello)
             .service(echo)
+            .route("/health_check", web::get().to(health_check))
             .route("/hey", web::get().to(manual_hello))
             .route("/secret", web::get().to(secretfn))
             .route("/{name}", web::get().to(greet))

@@ -1,6 +1,12 @@
 // ! test.health_check.rs
+use newsletter::main;
 
-fn dummy_test() {
+pub fn dummy_test() {
     // main runs
-//main()
+    let result: Result<(), std::io::Error> = main::main();
+    if result.is_err() {
+        println!("BADF");
+    } else {
+        println!("GOODT");
+    }
 }
