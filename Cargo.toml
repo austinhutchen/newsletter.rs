@@ -11,3 +11,9 @@ actix-web = "4.3.1"
 
 [lib]
 path = "src/lib.rs"
+
+[[bin]]
+path="src/main.rs"
+name="prog"
+
+
