@@ -19,7 +19,7 @@ async fn secretfn() -> impl Responder {
     HttpResponse::Ok().body("Welcome to my secret page!")
 }
 async fn health_check() -> impl Responder {
-    HttpResponse::Ok()
+ HttpResponse::Ok().body("All in good health!")
 }
 
 async fn greet(req: HttpRequest) -> impl Responder {
