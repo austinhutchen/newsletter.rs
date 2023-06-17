@@ -1,12 +1,20 @@
+use actix_web::{web, App, HttpResponse, HttpServer};
 // ! test.health_check.rs
-use newsletter::main;
 
-pub fn dummy_test() {
-    // main runs
-    let result: Result<(), std::io::Error> = main::main();
-    if result.is_err() {
-        println!("BADF");
-    } else {
-        println!("GOODT");
-    }
+
+
+
+
+async fn health_check()-> HttpResponse{
+HttpResponse::Ok().finish()
+}
+
+
+
+
+pub async fn run() -> std::io::Result<()> {
+    HttpServer::new(|| App::new().route("/health_check", web::get().to(health_check)))
+        .bind("127.0.0.1:8000")?
+        .run()
+        .await
 }

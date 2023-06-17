@@ -37,7 +37,7 @@ pub async fn main() -> std::io::Result<()> {
             .route("/hey", web::get().to(manual_hello))
             .route("/secret", web::get().to(secretfn))
             .route("/{name}", web::get().to(greet))
-    })
+    }) 
     .bind("127.0.0.1:8000")?
     .run()
     .await
