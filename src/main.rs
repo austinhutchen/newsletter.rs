@@ -1,4 +1,4 @@
-use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
+use actix_web::{get, post, web, App, HttpRequest, HttpResponse, HttpServer, Responder};
 
 #[get("/")]
 async fn hello() -> impl Responder {
@@ -18,15 +18,25 @@ async fn manual_hello() -> impl Responder {
 async fn secretfn() -> impl Responder {
     HttpResponse::Ok().body("Welcome to my secret page!")
 }
+async fn health_check() -> impl Responder {
+    HttpResponse::Ok()
+}
+
+async fn greet(req: HttpRequest) -> impl Responder {
+    let name = req.match_info().get("name").unwrap_or("NONAME");
+    format!("Hello {}!", &name)
+}
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
+            .route("/health_check", web::get().to(health_check))
             .service(hello)
             .service(echo)
             .route("/hey", web::get().to(manual_hello))
             .route("/secret", web::get().to(secretfn))
+            .route("/{name}", web::get().to(greet))
     })
     .bind("127.0.0.1:8000")?
     .run()
