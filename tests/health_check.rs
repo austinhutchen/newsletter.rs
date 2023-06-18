@@ -1,20 +1,18 @@
+use actix_web::dev::Server;
 use actix_web::{web, App, HttpResponse, HttpServer};
 // ! test.health_check.rs
-
-
-
-
-
-async fn health_check()-> HttpResponse{
-HttpResponse::Ok().finish()
+use newsletter;
+async fn health_check() -> HttpResponse {
+    HttpResponse::Ok().finish()
 }
 
 
+async fn spawn_app() {
+    let server = newsletter::run();
 
+}
 
-pub async fn run() -> std::io::Result<()> {
-    HttpServer::new(|| App::new().route("/health_check", web::get().to(health_check)))
-        .bind("127.0.0.1:8000")?
-        .run()
-        .await
+#[tokio::test]
+async fn health_check_works() {
+    spawn_app();
 }

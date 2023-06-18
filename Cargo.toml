@@ -7,6 +7,7 @@ edition = "2021"
 
 [dependencies]
 actix-web = "4.3.1"
+tokio = {version = "1.28.2", features= ["full"] }
 
 
 [lib]
@@ -15,5 +16,3 @@ path = "src/lib.rs"
 [[bin]]
 path="src/main.rs"
 name="prog"
-
-
