@@ -1,6 +1,7 @@
 use actix_web::{
     dev::Server, get, post, web, App, HttpRequest, HttpResponse, HttpServer, Responder,
 };
+use std::net::TcpListener;
 
 #[get("/")]
 async fn hello() -> impl Responder {
@@ -29,7 +30,7 @@ async fn greet(req: HttpRequest) -> impl Responder {
     format!("Hello {}!", &name)
 }
 
-pub fn run(address: &str) -> Result<Server, std::io::Error> {
+pub fn run(listener : TcpListener) -> Result<Server, std::io::Error> {
     let server = HttpServer::new(|| {
         App::new()
             .service(hello)
@@ -39,7 +40,7 @@ pub fn run(address: &str) -> Result<Server, std::io::Error> {
             .route("/secret", web::get().to(secretfn))
             .route("/{name}", web::get().to(greet))
     })
-    .bind(address)?
+    .listen(listener)?
     .run();
     Ok(server)
 }

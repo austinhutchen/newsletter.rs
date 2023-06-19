@@ -1,12 +1,18 @@
 use actix_web::{web, App, HttpResponse, HttpServer};
+use std::net::TcpListener;
+
 // ! test.health_check.rs
 use newsletter;
 async fn health_check() -> HttpResponse {
     HttpResponse::Ok().finish()
 }
 
-async fn spawn_app() {
-    let server = newsletter::run("127.0.0.1:8000");
+fn spawn_app()->String {
+    let listener = TcpListener::bind("127.0.0.1:0").expect("Failed to bind random port");
+    let port = listener.local_addr().unwrap().port();
+    let server = newsletter::run(listener).expect("Failed to bind address");
+    let _ = tokio::spawn(server);
+    format!("http://127.0.0.1:{}", port)
 }
 
 #[tokio::test]
