@@ -1,11 +1,8 @@
-use actix_web::{web, App, HttpResponse, HttpServer};
 use std::net::TcpListener;
 
 // ! test.health_check.rs
 use newsletter;
-async fn health_check() -> HttpResponse {
-    HttpResponse::Ok().finish()
-}
+
 
 fn spawn_app()->String {
     let listener = TcpListener::bind("127.0.0.1:0").expect("Failed to bind random port");
