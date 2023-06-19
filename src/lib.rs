@@ -29,7 +29,7 @@ async fn greet(req: HttpRequest) -> impl Responder {
     format!("Hello {}!", &name)
 }
 
-pub async fn run(address: &str) -> Result<Server, std::io::Error> {
+pub fn run(address: &str) -> Result<Server, std::io::Error> {
     let server = HttpServer::new(|| {
         App::new()
             .service(hello)
