@@ -12,7 +12,7 @@ async fn hello() -> impl Responder {
 #[post("/echo")]
 async fn echo(req_body: String) -> impl Responder {
     // With /echo in URL, "echo" is echoed into request bod
-    let body:String = req_body.replace("echo", "");
+    let body: String = req_body.replace("echo", "");
     HttpResponse::Ok().body(body)
 }
 // /hey for manual_hello
@@ -31,7 +31,7 @@ async fn greet(req: HttpRequest) -> impl Responder {
     format!("Hello {}!", &name)
 }
 
-pub fn run(listener : TcpListener) -> Result<Server, std::io::Error> {
+pub fn run(listener: TcpListener) -> Result<Server, std::io::Error> {
     let server = HttpServer::new(|| {
         App::new()
             .route("/health_check", web::get().to(health_check))

@@ -7,7 +7,7 @@ async fn main() -> std::io::Result<()> {
     // Otherwise call .await on our Server
     let address: &str = "127.0.0.1:8000";
     // was listen bind successful for random TCP choice of local port?
-    let listener:TcpListener = TcpListener::bind(address).expect("Failed to call TCP LISTEN");
+    let listener: TcpListener = TcpListener::bind(address).expect("Failed to call TCP LISTEN");
     // is run(listener) an error?  await if so. else, return the server result
     run(listener)?.await
 }
