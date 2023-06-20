@@ -23,5 +23,22 @@ async fn health_check_works() {
         .await
         .expect("Failed to execute requests to spawned address.");
     assert!(response.status().is_success());
+    // make sure contentlength is
     assert_eq!(Some(0), response.content_length());
+}
+
+#[tokio::test]
+async fn validsubscribe200() {
+    let addr = spawn_app();
+    let client = reqwest::Client::new();
+    let body = "name=austin%20hutchen&email=hutchenaustin%40gmail.com";
+    let response = client
+        .post(&format!("{}/subscriptions", &addr))
+        .header("Content-Type", "application/x-www-form-urlencoded")
+        .body(body)
+        .send()
+        .await
+        .expect("Failed to execute form fill request");
+    assert_eq!(200,response.status().as_u16());
+    
 }
