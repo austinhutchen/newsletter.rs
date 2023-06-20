@@ -34,6 +34,7 @@ async fn greet(req: HttpRequest) -> impl Responder {
 pub fn run(listener: TcpListener) -> Result<Server, std::io::Error> {
     let server = HttpServer::new(|| {
         App::new()
+            .service(hello)
             .route("/health_check", web::get().to(health_check))
             .route("/hey", web::get().to(manual_hello))
             .route("/secret", web::get().to(secretfn))
