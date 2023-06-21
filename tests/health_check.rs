@@ -42,3 +42,19 @@ async fn validsubscribe200() {
     assert_eq!(200,response.status().as_u16());
     
 }
+
+#[tokio::test]
+async fn invalidform400(){
+    let addr = spawn_app();
+    let client = reqwest::Client::new();
+    let body = "name=austin%40hutchen&email=hutchenaustin%20gmail.com";
+    let response = client
+        .post(&format!("{}/subscriptions", &addr))
+        .header("Content-Type", "application/x-www-form-urlencoded")
+        .body(body)
+        .send()
+        .await
+        .expect("Failed to execute form fill request");
+    assert_eq!(400,response.status().as_u16());
+
+}
