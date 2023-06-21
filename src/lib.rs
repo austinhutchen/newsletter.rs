@@ -36,7 +36,7 @@ async fn health_check() -> impl Responder {
     HttpResponse::Ok().body("All in good health!")
 }
 async fn subscribe(_form: web::Form<FormData>) -> HttpResponse {
-    // parse strongly typed info here after payload recieved
+    // parse strongly typed info here after payload recieved 
     HttpResponse::Ok().finish()
 }
 

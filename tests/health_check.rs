@@ -23,7 +23,7 @@ async fn health_check_works() {
         .await
         .expect("Failed to execute requests to spawned address.");
     assert!(response.status().is_success());
-    // make sure contentlength is
+    // make sure contentlength is of the right type
     assert_eq!(Some(0), response.content_length());
 }
 
@@ -45,23 +45,28 @@ async fn validsubscribe200() {
 #[tokio::test]
 async fn invalidform400() {
     let app_address = spawn_app();
-    let client = reqwest::Client::new(); let test_cases = vec![
-            ("name=le%20guin", "missing the email"),
-            ("email=ursula_le_guin%40gmail.com", "missing the name"),
-            ("", "missing both name and email")
+    let client = reqwest::Client::new();
+    let test_cases = vec![
+        ("name=le%20guin", "missing the email"),
+        ("email=ursula_le_guin%40gmail.com", "missing the name"),
+        ("", "missing both name and email"),
     ];
-        for (invalid_body, error_message) in test_cases {
-            // Act
-    let response = client
-    .post(&format!("{}/subscriptions", &app_address)) .header("Content-Type", "application/x-www-form-urlencoded") .body(invalid_body)
-    .send()
-    .await
-    .expect("Failed to execute request.");
-    // Assert
-    assert_eq!( 400,
-                response.status().as_u16(),
-                // Additional customised error message on test failure
-                "The API did not fail with 400 Bad Request when the payload was {}.",
-                error_message
-    ); }
+    for (invalid_body, error_message) in test_cases {
+        // Act
+        let response = client
+            .post(&format!("{}/subscriptions", &app_address))
+            .header("Content-Type", "application/x-www-form-urlencoded")
+            .body(invalid_body)
+            .send()
+            .await
+            .expect("Failed to execute request.");
+        // Assert
+        assert_eq!(
+            400,
+            response.status().as_u16(),
+            // Additional customised error message on test failure
+            "The API did not fail with 400 Bad Request when the payload was {}.",
+            error_message
+        );
+    }
 }
