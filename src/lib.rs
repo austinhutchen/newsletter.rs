@@ -1,7 +1,16 @@
 use actix_web::{
-    dev::Server, get, post, web::{self}, App, HttpRequest, HttpResponse, HttpServer, Responder,
+    dev::Server,
+    get, post,
+    web::{self},
+    App, HttpRequest, HttpResponse, HttpServer, Responder,
 };
 use std::net::TcpListener;
+
+#[derive(serde::Deserialize)]
+struct FormData {
+    email: String,
+    name: String,
+}
 
 #[get("/")]
 async fn hello() -> impl Responder {
@@ -26,7 +35,8 @@ async fn secretfn() -> impl Responder {
 async fn health_check() -> impl Responder {
     HttpResponse::Ok().body("All in good health!")
 }
-async fn subscribe() -> HttpResponse { 
+async fn subscribe(_form: web::Form<FormData>) -> HttpResponse {
+    // parse strongly typed info here after payload recieved
     HttpResponse::Ok().finish()
 }
 
@@ -38,12 +48,12 @@ async fn greet(req: HttpRequest) -> impl Responder {
 pub fn run(listener: TcpListener) -> Result<Server, std::io::Error> {
     let server = HttpServer::new(|| {
         App::new()
-            .service(hello) 
+            .service(hello)
             .route("/health_check", web::get().to(health_check))
             .route("/hey", web::get().to(manual_hello))
             .route("/secret", web::get().to(secretfn))
             .route("/{name}", web::get().to(greet))
-            .route("/subscriptions",web::post().to(subscribe))
+            .route("/subscriptions", web::post().to(subscribe))
     })
     .listen(listener)?
     .run();
