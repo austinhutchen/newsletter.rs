@@ -1,5 +1,5 @@
 use actix_web::{
-    dev::Server, get, post, web, App, HttpRequest, HttpResponse, HttpServer, Responder,
+    dev::Server, get, post, web::{self}, App, HttpRequest, HttpResponse, HttpServer, Responder,
 };
 use std::net::TcpListener;
 
@@ -26,6 +26,9 @@ async fn secretfn() -> impl Responder {
 async fn health_check() -> impl Responder {
     HttpResponse::Ok().body("All in good health!")
 }
+async fn subscribe() -> HttpResponse { 
+    HttpResponse::Ok().finish()
+}
 
 async fn greet(req: HttpRequest) -> impl Responder {
     let name: &str = req.match_info().get("name").unwrap_or("NONAME");
@@ -40,6 +43,7 @@ pub fn run(listener: TcpListener) -> Result<Server, std::io::Error> {
             .route("/hey", web::get().to(manual_hello))
             .route("/secret", web::get().to(secretfn))
             .route("/{name}", web::get().to(greet))
+            .route("/subscriptions",web::post().to(subscribe))
     })
     .listen(listener)?
     .run();

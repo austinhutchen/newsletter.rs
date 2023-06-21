@@ -40,7 +40,6 @@ async fn validsubscribe200() {
         .await
         .expect("Failed to execute form fill request");
     assert_eq!(200,response.status().as_u16());
-    
 }
 
 #[tokio::test]
@@ -56,5 +55,5 @@ async fn invalidform400(){
         .await
         .expect("Failed to execute form fill request");
     assert_eq!(400,response.status().as_u16());
-
 }
+
