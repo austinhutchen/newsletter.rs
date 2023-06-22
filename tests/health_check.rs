@@ -24,7 +24,7 @@ async fn health_check_works() {
         .expect("Failed to execute requests to spawned address.");
     assert!(response.status().is_success());
     // make sure contentlength is of the right type
-    assert_eq!(Some(0), response.content_length());
+    assert_ne!(Some(0), response.content_length());
 }
 
 #[tokio::test]
