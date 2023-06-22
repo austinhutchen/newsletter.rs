@@ -23,7 +23,7 @@ async fn health_check_works() {
         .await
         .expect("Failed to execute requests to spawned address.");
     assert!(response.status().is_success());
-    // make sure contentlength is of the right type
+    // make sure contentlength is of a length > 0
     assert_ne!(Some(0), response.content_length());
 }
 
