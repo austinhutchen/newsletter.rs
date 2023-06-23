@@ -5,7 +5,7 @@ use actix_web::{
     App, HttpRequest, HttpResponse, HttpServer, Responder,
 };
 use std::net::TcpListener;
-// declares struct for usage as form data
+// declares struct for usage as form data, allowing fromrequest implementation and data parsing from service body
 #[derive(serde::Deserialize)]
 struct FormData {
     email: String,
