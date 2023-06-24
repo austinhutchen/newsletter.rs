@@ -4,7 +4,7 @@ use actix_web::{
     web::{self},
     App, HttpRequest, HttpResponse, HttpServer, Responder,
 };
-use std::net::TcpListener;
+use std::{net::TcpListener};
 // declares struct for usage as form data, allowing fromrequest implementation and data parsing from service body
 #[derive(serde::Deserialize)]
 struct FormData {
@@ -22,7 +22,6 @@ async fn hello() -> impl Responder {
 async fn echo(req_body: String) -> impl Responder {
     // With /echo in URL, "echo" is echoed into request bod
     let body: String = req_body.replace("echo", "");
-
     HttpResponse::Ok().body(body)
 }
 // /hey for manual_hello

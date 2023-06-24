@@ -17,3 +17,12 @@ path = "src/components/lib.rs"
 [[bin]]
 path="src/main.rs"
 name="prog"
+
+features = [
+    "runtime-actix-rustls",
+    "macros",
+"postgres",
+    "uuid",
+    "chrono",
+    "migrate"
+]

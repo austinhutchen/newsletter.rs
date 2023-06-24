@@ -1,0 +1,5 @@
+r2 Desktop/code/projects/newsletter/target/debug/newsletter 
+r2 Desktop/code/projects/newsletter/target/debug/prog 
+// ANALYZE FIRST USING :: aaa ;pdf
+// ASM PDF PRINT :: agf 
+// PRINT CURRENT 64 BIT BLOCK :: px 64
