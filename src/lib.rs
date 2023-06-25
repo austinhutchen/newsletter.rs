@@ -19,7 +19,7 @@ struct FormData {
 #[get("/")]
 async fn hello() -> impl Responder {
     // without echo added, normal hello world response is generated
-    HttpResponse::Ok().body("Hello world!")
+    HttpResponse::Ok().body("Hello world!") 
 }
 
 #[post("/echo")]
