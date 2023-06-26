@@ -19,6 +19,9 @@ config = "0.11"
 path="src/main.rs"
 name="prog"
 
+[dependencies.sqlx]
+version = "0.5.7"
+default-features = false
 features = [
     "runtime-actix-rustls",
     "macros",
