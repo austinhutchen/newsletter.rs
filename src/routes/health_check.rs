@@ -2,7 +2,7 @@ use std::net::TcpListener;
 
 // ! test.health_check.rs
 use crate::configuration::get_configuration;
-use sqlx::{query, Connection, PgConnection};
+use sqlx::{ Connection, PgConnection};
 
 fn spawn_app() -> String {
     let listener = TcpListener::bind("127.0.0.1:0").expect("Failed to bind random port");
@@ -23,7 +23,7 @@ async fn health_check_works() {
         .await
         .expect("Failed to execute requests to spawned address.");
     assert!(response.status().is_success());
-    // make sure contentlength is of a length > 0
+    // some(0) ensures an integral comparison of length and not a boolean one
     assert_ne!(Some(0), response.content_length());
 }
 
@@ -49,7 +49,7 @@ async fn validsubscribe200() {
         .expect("Failed to execute request.");
     // Assert
     assert_eq!(200, response.status().as_u16());
-    let saved = query!("SELECT email, name FROM subscriptions")
+    let saved = sqlx::query("SELECT email, name FROM subscriptions")
         .fetch_one(&mut connection)
         .await
         .expect("Failed to fetch saved subscription.");

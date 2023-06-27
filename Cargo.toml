@@ -12,21 +12,11 @@ reqwest = { version = "0.11.18", features = ["json"] }
 serde = { version = "1", features = ["derive"]}
 config = "0.11"
 
-[lib]
+sqlx = { version = "0.6.3", default-features = false,features = ["runtime-actix-rustls","macros","postgres","uuid","chrono", "migrate"]}
+
 
 
 [[bin]]
 path="src/main.rs"
 name="prog"
 
-[dependencies.sqlx]
-version = "0.5.7"
-default-features = false
-features = [
-    "runtime-actix-rustls",
-    "macros",
-"postgres",
-    "uuid",
-    "chrono",
-    "migrate"
-]
