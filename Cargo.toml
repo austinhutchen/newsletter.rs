@@ -13,6 +13,7 @@ serde = { version = "1", features = ["derive"]}
 config = "0.11"
 
 sqlx = { version = "0.6.3", default-features = false,features = ["runtime-actix-rustls","macros","postgres","uuid","chrono", "migrate"]}
+cargo-watch = "8.4.0"
 
 [routes]
 subscribe ="./src/routes/subscribe.rs"
