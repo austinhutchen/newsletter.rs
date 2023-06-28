@@ -1,8 +1,7 @@
-use std::net::TcpListener;
-
+use std::{net::TcpListener, ffi::c_void};
 // ! test.health_check.rs
-use crate::configuration;
-use sqlx::{Connection, PgConnection};
+pub use crate::configuration;
+pub use sqlx::{Connection, PgConnection};
 
 fn spawn_app() -> String {
     let listener = TcpListener::bind("127.0.0.1:0").expect("Failed to bind random port");
@@ -84,4 +83,9 @@ async fn invalidform400() {
             error_message
         );
     }
+}
+
+async fn health_check()  {
+
+
 }

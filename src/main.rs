@@ -1,8 +1,7 @@
 use newsletter::run;
 use std::net::TcpListener;
-mod configuration;
-mod routes;
-pub use configuration::get_configuration;
+
+ use configuration::get_configuration;
 #[tokio::main]
 async fn main() -> std::io::Result<()> {
     // Bubble up the io::Error if we failed to bind the address
