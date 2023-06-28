@@ -1,8 +1,8 @@
 use std::net::TcpListener;
 
 // ! test.health_check.rs
-use crate::configuration::get_configuration;
-use sqlx::{ Connection, PgConnection};
+use crate::configuration;
+use sqlx::{Connection, PgConnection};
 
 fn spawn_app() -> String {
     let listener = TcpListener::bind("127.0.0.1:0").expect("Failed to bind random port");
@@ -30,7 +30,7 @@ async fn health_check_works() {
 #[tokio::test]
 async fn validsubscribe200() {
     let app_address = spawn_app();
-    let configuration = get_configuration().expect("Failed to read configuration");
+    let configuration = configuration::get_configuration().expect("Failed to read configuration");
     let connection_string = configuration.database.connection_string();
     // The `Connection` trait MUST be in scope for us to invoke
     // `PgConnection::connect` - it is not an inherent method of the struct!

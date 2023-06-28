@@ -21,9 +21,12 @@ pub fn get_configuration() -> Result<Settings, config::ConfigError> {
     settings.merge(config::File::with_name("configuration"))?;
     settings.try_into()
 }
-
+// allows our struct to have a function. Usage: impl DatabaseSettings for Settings{
+// 
+//}
 impl DatabaseSettings {
     pub fn connection_string(&self) -> String { format!(
+        // connection string formatting with username, password, and more info for sucessful DB connect
                 "postgres://{}:{}@{}:{}/{}",
                 self.username, self.password, self.host, self.port, self.database_name
             )

@@ -14,8 +14,8 @@ config = "0.11"
 
 sqlx = { version = "0.6.3", default-features = false,features = ["runtime-actix-rustls","macros","postgres","uuid","chrono", "migrate"]}
 
-
-
+[routes]
+subscribe ="./src/routes/subscribe.rs"
 [[bin]]
 path="src/main.rs"
 name="prog"
