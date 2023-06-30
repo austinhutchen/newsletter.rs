@@ -11,7 +11,7 @@ use actix_web::{
 use std::{net::TcpListener};
 // declares struct for usage as form data, allowing fromrequest implementation and data parsing from service body
 #[derive(serde::Deserialize)]
-struct FormData {
+pub struct FormData {
     email: String,
     name: String,
 }
@@ -48,7 +48,7 @@ async fn greet(req: HttpRequest) -> impl Responder {
     format!("Hello {}!", &name)
 }
 
-pub fn run(listener: TcpListener) -> Result<Server, std::io::Error> {
+pub fn runlib(listener: TcpListener) -> Result<Server, std::io::Error> {
     let server = HttpServer::new(|| {
         App::new()
             .service(hello)
