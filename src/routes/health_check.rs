@@ -1,9 +1,9 @@
-use std::{net::TcpListener};
+use std::net::TcpListener;
 // ! test.health_check.rs
 pub use crate::configuration;
 pub use sqlx::{Connection, PgConnection};
 
-fn spawn_app() -> String {
+pub fn spawn_app() -> String {
     let listener = TcpListener::bind("127.0.0.1:0").expect("Failed to bind random port");
     // let listener bind a random port
     let port = listener.local_addr().unwrap().port();
@@ -13,7 +13,7 @@ fn spawn_app() -> String {
 }
 
 #[tokio::test]
-async fn health_check_works() {
+pub async fn health_check_works() {
     let addr = spawn_app();
     let client = reqwest::Client::new();
     let response = client
@@ -85,7 +85,4 @@ async fn invalidform400() {
     }
 }
 
-async fn health_check()  {
-
-
-}
+pub async fn health_check() {}

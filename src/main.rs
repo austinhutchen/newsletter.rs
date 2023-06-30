@@ -4,6 +4,7 @@ use startup::run;
 use std::net::TcpListener;
 pub use sqlx::{Connection, PgConnection};
 use configuration::get_configuration;
+
 #[tokio::main]
 async fn main() -> std::io::Result<()> {
     // Bubble up the io::Error if we failed to bind the address
