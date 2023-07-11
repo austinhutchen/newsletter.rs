@@ -1,9 +1,9 @@
-mod startup;
 mod configuration;
+mod startup;
+use configuration::get_configuration;
+pub use sqlx::{Connection, PgConnection};
 use startup::run;
 use std::net::TcpListener;
-pub use sqlx::{Connection, PgConnection};
-use configuration::get_configuration;
 
 #[tokio::main]
 async fn main() -> std::io::Result<()> {
@@ -17,5 +17,5 @@ async fn main() -> std::io::Result<()> {
     // was listen bind successful for random TCP choice of local port?
     let listener: TcpListener = TcpListener::bind(address).expect("Failed to call TCP LISTEN");
     // is run(listener) an error?  await if so. else, return the server result
-    run(listener,connection)?.await
+    run(listener, connection)?.await
 }

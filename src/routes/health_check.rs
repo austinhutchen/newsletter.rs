@@ -1,6 +1,7 @@
 use std::net::TcpListener;
 // ! test.health_check.rs
 pub use crate::configuration;
+use actix_web::Handler;
 pub use sqlx::{Connection, PgConnection};
 
 pub fn spawn_app() -> String {
@@ -85,4 +86,6 @@ async fn invalidform400() {
     }
 }
 
-pub async fn health_check() {}
+pub async fn health_check()-> Handler<(),Error> {
+  
+}
