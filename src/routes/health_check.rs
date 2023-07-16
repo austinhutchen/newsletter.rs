@@ -86,6 +86,4 @@ async fn invalidform400() {
     }
 }
 
-pub async fn health_check()-> Handler<(),Error> {
-  
-}
+pub async fn health_check() -> Handler<(), Error> {}
